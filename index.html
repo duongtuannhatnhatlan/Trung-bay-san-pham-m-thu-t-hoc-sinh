@@ -7,10 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         .gallery-card:hover .overlay { opacity: 1; }
         .image-container img { object-fit: cover; width: 100%; height: 100%; transition: transform 0.5s ease; }
         .gallery-card:hover img { transform: scale(1.05); }
+        [v-cloak] { display: none; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -23,96 +24,169 @@
                     <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-white">A</div>
                     <span class="font-bold text-xl tracking-tight">ArtClass</span>
                 </div>
-                <div class="hidden md:flex space-x-8 font-medium text-sm">
-                    <a href="#gallery" class="hover:text-indigo-600 transition">Trưng bày</a>
-                    <a href="#projects" class="hover:text-indigo-600 transition">Dự án</a>
-                    <a href="#about" class="hover:text-indigo-600 transition">Giới thiệu</a>
+                <div class="flex space-x-4">
+                    <button onclick="toggleAdmin()" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full font-semibold transition">Quản lý nội dung</button>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- Admin Panel (Hidden by default) -->
+    <div id="adminPanel" class="hidden fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Thêm tác phẩm mới</h2>
+                <button onclick="toggleAdmin()" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Chọn ảnh vẽ</label>
+                    <input type="file" id="imageInput" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Tên tác phẩm</label>
+                    <input type="text" id="titleInput" placeholder="Ví dụ: Nụ cười" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Tên học sinh & Lớp</label>
+                    <input type="text" id="authorInput" placeholder="Ví dụ: Nguyễn Văn A - 7A" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Thể loại</label>
+                    <select id="typeInput" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <option value="Sơn dầu">Sơn dầu</option>
+                        <option value="Lập thể">Lập thể</option>
+                        <option value="Kí họa">Kí họa</option>
+                        <option value="Màu nước">Màu nước</option>
+                    </select>
+                </div>
+                <button onclick="addArtwork()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition">Thêm vào triển lãm</button>
+                <p class="text-[10px] text-gray-400 text-center uppercase tracking-tighter mt-4">Lưu ý: Ảnh này sẽ chỉ lưu tạm trên trình duyệt của bạn</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="py-16 bg-white text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Phòng Trưng Bày <span class="text-indigo-600">Sáng Tạo</span></h1>
-        <p class="text-gray-500 max-w-xl mx-auto">Nơi tôn vinh những nét vẽ và ý tưởng độc đáo của các bạn học sinh.</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Phòng Trưng Bày <span class="text-indigo-600">Mĩ Thuật</span></h1>
+        <p class="text-gray-500 max-w-xl mx-auto px-4 italic">"Nơi những tâm hồn trẻ thơ bay bổng cùng sắc màu và đường nét"</p>
     </header>
 
     <!-- Gallery Section -->
     <section id="gallery" class="py-12 max-w-6xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- TÁC PHẨM 1 -->
-            <div class="gallery-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="aspect-square bg-gray-100 relative overflow-hidden image-container">
-                    <!-- HƯỚNG DẪN: Thay 'ten-file-anh-1.jpg' bằng tên file ảnh thật của bạn -->
-                    <img src="https://via.placeholder.com/600x600?text=Thay+Anh+Tai+Day+1" alt="Tác phẩm mĩ thuật" onerror="this.src='https://via.placeholder.com/600x600?text=Loi+Link+Anh'">
-                    <div class="overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
-                        <span class="text-white border-2 border-white px-4 py-2 rounded-lg font-bold">Phóng to</span>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-indigo-600 text-[10px] font-bold uppercase tracking-widest">Sơn dầu</span>
-                    <h3 class="text-lg font-bold mt-1">Nụ cười hồn nhiên</h3>
-                    <p class="text-sm text-gray-500">Nguyễn Minh Anh - Lớp 7A</p>
-                </div>
-            </div>
-
-            <!-- TÁC PHẨM 2 -->
-            <div class="gallery-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="aspect-square bg-gray-100 relative overflow-hidden image-container">
-                    <!-- HƯỚNG DẪN: Thay 'ten-file-anh-2.jpg' bằng tên file ảnh thật của bạn -->
-                    <img src="https://via.placeholder.com/600x600?text=Thay+Anh+Tai+Day+2" alt="Tác phẩm mĩ thuật">
-                    <div class="overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
-                        <span class="text-white border-2 border-white px-4 py-2 rounded-lg font-bold">Phóng to</span>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-blue-600 text-[10px] font-bold uppercase tracking-widest">Lập thể</span>
-                    <h3 class="text-lg font-bold mt-1">Đa chiều cảm xúc</h3>
-                    <p class="text-sm text-gray-500">Trần Bảo Ngọc - Lớp 9B</p>
-                </div>
-            </div>
-
-            <!-- TÁC PHẨM 3 -->
-            <div class="gallery-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="aspect-square bg-gray-100 relative overflow-hidden image-container">
-                    <!-- HƯỚNG DẪN: Thay 'ten-file-anh-3.jpg' bằng tên file ảnh thật của bạn -->
-                    <img src="https://via.placeholder.com/600x600?text=Thay+Anh+Tai+Day+3" alt="Tác phẩm mĩ thuật">
-                    <div class="overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
-                        <span class="text-white border-2 border-white px-4 py-2 rounded-lg font-bold">Phóng to</span>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-green-600 text-[10px] font-bold uppercase tracking-widest">Kí họa</span>
-                    <h3 class="text-lg font-bold mt-1">Góc phố thân quen</h3>
-                    <p class="text-sm text-gray-500">Lê Văn Khoa - Lớp 8C</p>
-                </div>
-            </div>
-
+        <div id="artGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Tác phẩm sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20 border-2 border-dashed border-gray-200 rounded-3xl">
+            <p class="text-gray-400">Chưa có tác phẩm nào. Hãy nhấn "Quản lý nội dung" để thêm ảnh!</p>
         </div>
     </section>
 
-    <!-- Project Section -->
-    <section id="projects" class="py-20 bg-gray-100/50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-10 text-center uppercase tracking-widest">Dự án tiêu biểu</h2>
-            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row gap-10 items-center">
-                <div class="w-full md:w-1/2 bg-indigo-50 rounded-2xl aspect-video flex items-center justify-center border-2 border-dashed border-indigo-200">
-                    <span class="text-indigo-400 font-medium">[Chèn ảnh dự án sắp đặt]</span>
-                </div>
-                <div class="w-full md:w-1/2">
-                    <h3 class="text-2xl font-bold mb-4 italic">Nghệ thuật Sắp đặt & Tái chế</h3>
-                    <p class="text-gray-600 mb-6">Khám phá cách học sinh biến những vật liệu bỏ đi thành những thông điệp nghệ thuật đầy ý nghĩa về môi trường và cuộc sống.</p>
-                    <button class="bg-gray-900 text-white px-6 py-2 rounded-lg text-sm font-bold">Xem dự án</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-10 text-center text-gray-400 text-xs">
-        <p>&copy; 2024 ArtClass Portfolio - Lưu giữ hành trình nghệ thuật.</p>
+    <footer class="py-12 text-center border-t border-gray-100 mt-20">
+        <p class="text-gray-400 text-xs tracking-widest uppercase">&copy; 2024 Art Gallery Exhibition</p>
     </footer>
 
+    <script>
+        let artworks = [];
+
+        // Khởi tạo trang: Lấy dữ liệu đã lưu
+        window.onload = function() {
+            const savedData = localStorage.getItem('schoolArtGallery');
+            if (savedData) {
+                artworks = JSON.parse(savedData);
+            } else {
+                // Dữ liệu mẫu nếu trống
+                artworks = [
+                    { title: "Mẫu: Nụ cười", author: "Học sinh A - 7A", type: "Sơn dầu", image: "https://via.placeholder.com/600x600?text=Anh+Mau+1" }
+                ];
+            }
+            renderGallery();
+        };
+
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        function addArtwork() {
+            const fileInput = document.getElementById('imageInput');
+            const title = document.getElementById('titleInput').value;
+            const author = document.getElementById('authorInput').value;
+            const type = document.getElementById('typeInput').value;
+
+            if (!fileInput.files[0] || !title || !author) {
+                alert("Vui lòng điền đầy đủ thông tin và chọn ảnh!");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newArt = {
+                    title: title,
+                    author: author,
+                    type: type,
+                    image: e.target.result // Lưu dạng Base64
+                };
+                
+                artworks.unshift(newArt); // Thêm lên đầu danh sách
+                saveAndRender();
+                toggleAdmin();
+                
+                // Reset form
+                document.getElementById('titleInput').value = '';
+                document.getElementById('authorInput').value = '';
+                fileInput.value = '';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function deleteArtwork(index) {
+            if(confirm("Xóa tác phẩm này khỏi danh sách tạm?")) {
+                artworks.splice(index, 1);
+                saveAndRender();
+            }
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('schoolArtGallery', JSON.stringify(artworks));
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('artGrid');
+            const empty = document.getElementById('emptyState');
+            
+            if (artworks.length === 0) {
+                grid.classList.add('hidden');
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            empty.classList.add('hidden');
+            grid.innerHTML = '';
+
+            artworks.forEach((art, index) => {
+                grid.innerHTML += `
+                    <div class="gallery-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 relative">
+                        <button onclick="deleteArtwork(${index})" class="absolute top-2 right-2 z-10 bg-red-500 text-white w-6 h-6 rounded-full opacity-0 group-hover:opacity-100 transition shadow-lg">✕</button>
+                        <div class="aspect-square bg-gray-100 relative overflow-hidden image-container">
+                            <img src="${art.image}" alt="${art.title}">
+                            <div class="overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
+                                <span class="text-white border-2 border-white px-4 py-2 rounded-lg font-bold text-sm">Xem chi tiết</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <span class="text-indigo-600 text-[10px] font-bold uppercase tracking-widest">${art.type}</span>
+                            <h3 class="text-lg font-bold mt-1">${art.title}</h3>
+                            <p class="text-sm text-gray-500">${art.author}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    </script>
 </body>
 </html>
