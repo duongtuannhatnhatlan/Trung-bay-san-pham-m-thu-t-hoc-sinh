@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triển lãm Mĩ thuật Học đường</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .gallery-card:hover .overlay { opacity: 1; }
+        .image-container img { object-fit: cover; width: 100%; height: 100%; transition: transform 0.5s ease; }
+        .gallery-card:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-white">A</div>
+                    <span class="font-bold text-xl tracking-tight">ArtClass</span>
+                </div>
+                <div class="hidden md:flex space-x-8 font-medium text-sm">
+                    <a href="#gallery" class="hover:text-indigo-600 transition">Trưng bày</a>
+                    <a href="#projects" class="hover:text-indigo-600 transition">Dự án</a>
+                    <a href="#about" class="hover:text-indigo-600 transition">Giới thiệu</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-16 bg-white text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Phòng Trưng Bày <span class="text-indigo-600">Sáng Tạo</span></h1>
+        <p class="text-gray-500 max-w-xl mx-auto">Nơi tôn vinh những nét vẽ và ý tưởng độc đáo của các bạn học sinh.</p>
+    </header>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-12 max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- TÁC PHẨM 1 -->
+            <div class="gallery-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <div class="aspect-square bg-gray-100 relative overflow-hidden image-container">
+                    <!-- HƯỚNG DẪN: Thay 'ten-file-anh-1.jpg' bằng tên file ảnh thật của bạn -->
+                    <img src="https://via.placeholder.com/600x600?text=Thay+Anh+Tai+Day+1" alt="Tác phẩm mĩ thuật" onerror="this.src='https://via.placeholder.com/600x600?text=Loi+Link+Anh'">
+                    <div class="overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
+                        <span class="text-white border-2 border-white px-4 py-2 rounded-lg font-bold">Phóng to</span>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <span class="text-indigo-600 text-[10px] font-bold uppercase tracking-widest">Sơn dầu</span>
+                    <h3 class="text-lg font-bold mt-1">Nụ cười hồn nhiên</h3>
+                    <p class="text-sm text-gray-500">Nguyễn Minh Anh - Lớp 7A</p>
+                </div>
+            </div>
+
+            <!-- TÁC PHẨM 2 -->
+            <div class="gallery-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <div class="aspect-square bg-gray-100 relative overflow-hidden image-container">
+                    <!-- HƯỚNG DẪN: Thay 'ten-file-anh-2.jpg' bằng tên file ảnh thật của bạn -->
+                    <img src="https://via.placeholder.com/600x600?text=Thay+Anh+Tai+Day+2" alt="Tác phẩm mĩ thuật">
+                    <div class="overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
+                        <span class="text-white border-2 border-white px-4 py-2 rounded-lg font-bold">Phóng to</span>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <span class="text-blue-600 text-[10px] font-bold uppercase tracking-widest">Lập thể</span>
+                    <h3 class="text-lg font-bold mt-1">Đa chiều cảm xúc</h3>
+                    <p class="text-sm text-gray-500">Trần Bảo Ngọc - Lớp 9B</p>
+                </div>
+            </div>
+
+            <!-- TÁC PHẨM 3 -->
+            <div class="gallery-card group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <div class="aspect-square bg-gray-100 relative overflow-hidden image-container">
+                    <!-- HƯỚNG DẪN: Thay 'ten-file-anh-3.jpg' bằng tên file ảnh thật của bạn -->
+                    <img src="https://via.placeholder.com/600x600?text=Thay+Anh+Tai+Day+3" alt="Tác phẩm mĩ thuật">
+                    <div class="overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
+                        <span class="text-white border-2 border-white px-4 py-2 rounded-lg font-bold">Phóng to</span>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <span class="text-green-600 text-[10px] font-bold uppercase tracking-widest">Kí họa</span>
+                    <h3 class="text-lg font-bold mt-1">Góc phố thân quen</h3>
+                    <p class="text-sm text-gray-500">Lê Văn Khoa - Lớp 8C</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Project Section -->
+    <section id="projects" class="py-20 bg-gray-100/50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-10 text-center uppercase tracking-widest">Dự án tiêu biểu</h2>
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row gap-10 items-center">
+                <div class="w-full md:w-1/2 bg-indigo-50 rounded-2xl aspect-video flex items-center justify-center border-2 border-dashed border-indigo-200">
+                    <span class="text-indigo-400 font-medium">[Chèn ảnh dự án sắp đặt]</span>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4 italic">Nghệ thuật Sắp đặt & Tái chế</h3>
+                    <p class="text-gray-600 mb-6">Khám phá cách học sinh biến những vật liệu bỏ đi thành những thông điệp nghệ thuật đầy ý nghĩa về môi trường và cuộc sống.</p>
+                    <button class="bg-gray-900 text-white px-6 py-2 rounded-lg text-sm font-bold">Xem dự án</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-400 text-xs">
+        <p>&copy; 2024 ArtClass Portfolio - Lưu giữ hành trình nghệ thuật.</p>
+    </footer>
+
+</body>
+</html>
